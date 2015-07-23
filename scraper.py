@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 # Set up variables
 entity_id = "E5033_BLBC_gov"
-url = "http://brent.gov.uk/your-council/transparency-in-brent/open-data/monthly-spend/"
+url = "http://brent.gov.uk/your-council/transparency-in-brent/open-data/spending/"
 
 # Set up functions
 def convert_mth_strings ( mth_string ):
@@ -45,6 +45,11 @@ for block in blocks:
 			fileUrl = fileUrl.replace("/your-council","http://www.brent.gov.uk/your-council")
 			
 			title = sublink.contents[0]
+			
+			if title == None:
+				print sublink
+				exit
+				
 			# create the right strings for the new filename
 			title = title.upper().strip()
 			
