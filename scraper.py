@@ -51,7 +51,7 @@ def validateURL(url):
         else:
             ext = os.path.splitext(url)[1]
         validURL = r.getcode() == 200
-        validFiletype = ext.lower() in ['.csv', '.xls', '.xlsx']
+        validFiletype = ext.lower() in ['.csv', '.xls', '.xlsx', '.xlsm']
         return validURL, validFiletype
     except:
         print ("Error validating URL.")
@@ -101,10 +101,10 @@ soup = BeautifulSoup(html, 'lxml')
 blocks = soup.findAll('h2', {'class':'removeLowerMargin'})
 for block in blocks:
     link = block.a['href']
-    pageUrl = link.replace("/your-council","http://www.brent.gov.uk/your-council")
+    pageUrl = 'https://www.brent.gov.uk'+link
     html2 = urllib2.urlopen(pageUrl)
     soup2 = BeautifulSoup(html2, 'lxml')
-    csvYr = soup2.find('span',{'class':'h1Text'}).contents[0].strip()
+    csvYr = soup2.find('span',{'class':'h1Text'}).text.split('|')[0].strip()[-4:]
     sublinks = soup2.findAll('a', href=True)
     for sublink in sublinks:
         subhref = sublink['href']
